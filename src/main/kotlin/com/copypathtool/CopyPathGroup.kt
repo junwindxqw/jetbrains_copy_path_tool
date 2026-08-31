@@ -15,7 +15,7 @@ internal class SectionTitleAction(private val codeBlock: Boolean, title: String)
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.EDT
 
     override fun actionPerformed(e: AnActionEvent) {
-        // 分区标题不可点击，无动作
+        // 分区标题不可点击复制，无动作
     }
 
     override fun update(e: AnActionEvent) {
@@ -23,7 +23,7 @@ internal class SectionTitleAction(private val codeBlock: Boolean, title: String)
         val hasSelection = editor?.selectionModel?.hasSelection() == true
         e.presentation.isVisible = e.getData(CommonDataKeys.VIRTUAL_FILE) != null &&
             editor != null && codeBlock == hasSelection
-        e.presentation.isEnabled = false
+        // 正常外观（不置灰）；actionPerformed 为空实现，点击不产生任何效果
     }
 }
 
