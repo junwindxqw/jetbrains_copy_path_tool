@@ -1,0 +1,297 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20260831T075302263Z-28136-027f98cb2997",
+  "run_status": "completed",
+  "errors": [],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "complete",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 6,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 5
+    },
+    "change_tracking": {
+      "touched_observed": 5,
+      "touched_retained": 5,
+      "truncated": false,
+      "bash_mutation": true,
+      "bash_discovered": 5,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 5,
+      "selected_files": 5,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 5,
+      "scanned_files": 5,
+      "skipped_files": 0,
+      "failed_files": 0,
+      "project_checks_required": 1,
+      "project_checks_completed": 1
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {},
+    "reasons": [],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-08-31T07:53:02.263Z",
+  "session_id": "sess_57d93b11-4ff6-4bc3-be08-38f26c4968bb",
+  "target": ".",
+  "revision": null,
+  "rules_version": "unavailable",
+  "diff_hash": "43c4f502f89e6bca1caea3b81f81d767706b676d7aae5ab63f31cafe0595089c",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 5,
+    "changed_files": [
+      {
+        "file": "build.gradle.kts",
+        "ranges": [
+          {
+            "start": 11,
+            "end": 11
+          }
+        ],
+        "before_hash": "204b294be0c04a2ffa4ee970c2152b8217812f599917ef683791c08fc22e3e47",
+        "after_hash": "d2e214a017692652e96ae745c964cbbd64015434c24bb2cae6bb07d6b9a8b48a"
+      },
+      {
+        "file": "src/main/kotlin/com/copypathtool/CopyPathAction.kt",
+        "ranges": [
+          {
+            "start": 60,
+            "end": 71
+          },
+          {
+            "start": 76,
+            "end": 80
+          },
+          {
+            "start": 90,
+            "end": 93
+          },
+          {
+            "start": 95,
+            "end": 99
+          },
+          {
+            "start": 107,
+            "end": 113
+          },
+          {
+            "start": 121,
+            "end": 125
+          },
+          {
+            "start": 133,
+            "end": 133
+          }
+        ],
+        "before_hash": "748f933de900c1d794477ff91f17fef540ec59057fa5b15301318608247044d2",
+        "after_hash": "626069edde4b2e55fddb77926f9d6b875ee44a820afec015ec653e93d75f2047"
+      },
+      {
+        "file": "src/main/kotlin/com/copypathtool/CopyPathGroup.kt",
+        "ranges": [
+          {
+            "start": 7,
+            "end": 7
+          },
+          {
+            "start": 9,
+            "end": 17
+          },
+          {
+            "start": 20,
+            "end": 33
+          }
+        ],
+        "before_hash": "4a0de33d275e6024cbf7e81b974b8091ac6b8c3594bc11c6651c34a2fc5cd7e8",
+        "after_hash": "8a0a99886d51c0cc4977a528a6b6951a7c59b110534268f69243ad81d80ce1b6"
+      },
+      {
+        "file": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ranges": [
+          {
+            "start": 29,
+            "end": 30
+          },
+          {
+            "start": 89,
+            "end": 90
+          },
+          {
+            "start": 92,
+            "end": 94
+          },
+          {
+            "start": 120,
+            "end": 120
+          },
+          {
+            "start": 123,
+            "end": 124
+          },
+          {
+            "start": 129,
+            "end": 129
+          },
+          {
+            "start": 131,
+            "end": 135
+          },
+          {
+            "start": 137,
+            "end": 137
+          },
+          {
+            "start": 143,
+            "end": 146
+          }
+        ],
+        "before_hash": "dcef49b7806e72b7b9b293e00c6346b0e81405c04997e8bc82983d137895f1ca",
+        "after_hash": "4defc9ae5f2308d95b9cd58b657aadeeb2c81f412c017110eec89757c9ee6516"
+      },
+      {
+        "file": "src/test/kotlin/com/copypathtool/CopyPathActionTest.kt",
+        "ranges": [
+          {
+            "start": 10,
+            "end": 10
+          },
+          {
+            "start": 18,
+            "end": 19
+          },
+          {
+            "start": 70,
+            "end": 70
+          },
+          {
+            "start": 72,
+            "end": 83
+          },
+          {
+            "start": 86,
+            "end": 87
+          },
+          {
+            "start": 90,
+            "end": 94
+          },
+          {
+            "start": 97,
+            "end": 105
+          },
+          {
+            "start": 108,
+            "end": 109
+          },
+          {
+            "start": 111,
+            "end": 112
+          },
+          {
+            "start": 115,
+            "end": 115
+          },
+          {
+            "start": 119,
+            "end": 124
+          },
+          {
+            "start": 126,
+            "end": 127
+          },
+          {
+            "start": 130,
+            "end": 130
+          },
+          {
+            "start": 132,
+            "end": 132
+          },
+          {
+            "start": 138,
+            "end": 138
+          },
+          {
+            "start": 148,
+            "end": 148
+          },
+          {
+            "start": 160,
+            "end": 160
+          }
+        ],
+        "before_hash": "4699aba352d613128f23779aec62410234b1704becc97ae96a66339e56b827b4",
+        "after_hash": "1b2e98c6194f5e1182b29a3e4e9e8f71ce88e6af723070d79bdec75c11994074"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-08-31T07:53:00.154Z",
+    "completed_at": "2026-08-31T07:53:02.263Z",
+    "duration_ms": 2109,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "complete",
+    "latencyMs": 2109,
+    "peakMemoryBytes": 123965440,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 5,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-sess_57d93b11-4ff6-4bc3-be08-38f26c4968bb-20260831T075302263Z-28136-027f98cb2997.json",
+    "latest_report": ".mimosa/reports/task-review-sess_57d93b11-4ff6-4bc3-be08-38f26c4968bb.json",
+    "history_summary": ".mimosa/history/run-20260831T075302263Z-28136-027f98cb2997.json"
+  }
+}

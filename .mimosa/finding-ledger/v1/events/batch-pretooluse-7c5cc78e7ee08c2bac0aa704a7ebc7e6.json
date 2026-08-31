@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "pretooluse-7c5cc78e7ee08c2bac0aa704a7ebc7e6",
+  "runId": null,
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "PreToolUse"
+  },
+  "revision": null,
+  "diffHash": null,
+  "rulesVersion": null,
+  "sessionHash": "b74b13f265945f897bd0021329f8e02c1d02d2799ecda0787427b423c911de03",
+  "reportRef": null,
+  "events": [
+    {
+      "eventId": "hook-2bfae02557b3b2237e41b8cb633d17eb",
+      "findingId": "mimosa-824820d23c212b6770ab8a02",
+      "type": "finding_blocked",
+      "at": "2026-08-31T04:28:23.492Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "49286edc6ea3cdf53103b7523aa971366718e7571f9035fa33abaa049e0cd013",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 33,
+      "endLine": 33,
+      "reasonCode": "deny",
+      "reportedToAgent": true,
+      "evidence": {
+        "kind": "source",
+        "boundary": "candidate",
+        "producer": "deterministic",
+        "evidenceHash": "49286edc6ea3cdf53103b7523aa971366718e7571f9035fa33abaa049e0cd013"
+      },
+      "sequence": 0
+    }
+  ],
+  "observedFindingIds": [],
+  "verifiedFiles": [],
+  "recordedAt": "2026-08-31T04:28:24.019Z"
+}

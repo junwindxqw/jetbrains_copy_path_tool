@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<idea-plugin>
+    <id>com.copypathtool</id>
+    <name>Copy Path Tool</name>
+    <vendor>copypathtool</vendor>
+    <description><![CDATA[
+        <p>Quickly copy the path of the current file or selected code block from the editor context menu —
+        designed for pasting into AI agent chats (ZCode, Kimi Work, Qoder Work, WorkBuddy, Trae Work, etc.) as context.</p>
+        <ul>
+            <li><b>Copy File Disk Path</b> — full disk path, e.g. <code>D:/work/demo/src/App.java</code></li>
+            <li><b>Copy File Project Path</b> — path relative to the project root, e.g. <code>src/App.java</code></li>
+            <li>With code selected, the two items switch to <b>Copy Code Block Disk Path / Copy Code Block Project Path</b>
+                and append the selected line range, e.g. <code>src/App.java:12-34</code> (single line: <code>src/App.java:12</code>)</li>
+        </ul>
+        <p>Works in IntelliJ IDEA, PyCharm, GoLand, PhpStorm, WebStorm and all other IntelliJ Platform IDEs (2024.1+).</p>
+    ]]></description>
+
+    <!-- 仅依赖平台模块，即可兼容所有 IntelliJ Platform 系列 IDE -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 内置自检：仅当以 -Dcopypath.selftest=... 启动时激活，正常运行零开销 -->
+        <postStartupActivity implementation="com.copypathtool.SelfTestActivity"/>
+    </extensions>
+
+    <actions>
+        <group id="CopyPathTool.Group"
+               class="com.copypathtool.CopyPathGroup"
+               popup="true"
+               text="Copy Path Tool"
+               description="Copy disk or project-relative paths of files and code blocks (flat menu with section titles)">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </group>
+    </actions>
+</idea-plugin>

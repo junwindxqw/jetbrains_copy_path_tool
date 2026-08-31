@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "posttooluse-5bb474ccb092e99f48e3e3513bf750ce",
+  "runId": null,
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "PostToolUse"
+  },
+  "revision": null,
+  "diffHash": null,
+  "rulesVersion": null,
+  "sessionHash": "b74b13f265945f897bd0021329f8e02c1d02d2799ecda0787427b423c911de03",
+  "reportRef": null,
+  "events": [
+    {
+      "eventId": "hook-bb6752cbbe8f23621021f313552b0703",
+      "findingId": "mimosa-1e4220f12a93d78adc588bc3",
+      "type": "static_fix_verified",
+      "at": "2026-08-31T04:29:37.219Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "6681f87623ffa9485d390afa660bb9b11e8de9d64cae4dd4df965ee6cad481a2",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 32,
+      "endLine": 32,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "6681f87623ffa9485d390afa660bb9b11e8de9d64cae4dd4df965ee6cad481a2"
+      },
+      "sequence": 0
+    },
+    {
+      "eventId": "hook-1a7979ac04d3360391eb210f38703107",
+      "findingId": "mimosa-824820d23c212b6770ab8a02",
+      "type": "static_fix_verified",
+      "at": "2026-08-31T04:29:37.219Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "49286edc6ea3cdf53103b7523aa971366718e7571f9035fa33abaa049e0cd013",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 33,
+      "endLine": 33,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "49286edc6ea3cdf53103b7523aa971366718e7571f9035fa33abaa049e0cd013"
+      },
+      "sequence": 1
+    },
+    {
+      "eventId": "hook-42a3a4312483ff9ca57fb6dd0d3ca992",
+      "findingId": "mimosa-c01cc877a1388b1fa6641d73",
+      "type": "static_fix_verified",
+      "at": "2026-08-31T04:29:37.219Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "32d1e6b196b6538db3487239e6d961bb36538ea687a4a883c06584432f87940e",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 32,
+      "endLine": 32,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "32d1e6b196b6538db3487239e6d961bb36538ea687a4a883c06584432f87940e"
+      },
+      "sequence": 2
+    },
+    {
+      "eventId": "hook-57a90e791490668492cc35919a938a95",
+      "findingId": "mimosa-cca5f1e8b39a2e5e90dc9e93",
+      "type": "static_fix_verified",
+      "at": "2026-08-31T04:29:37.219Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "cf920e24bcb2251ec74c01306491ccd621e1a4a33448a2db9e527f1ca2ba8eeb",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 3,
+      "endLine": 3,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "cf920e24bcb2251ec74c01306491ccd621e1a4a33448a2db9e527f1ca2ba8eeb"
+      },
+      "sequence": 3
+    },
+    {
+      "eventId": "hook-9ef4d5d9422e0238662fceff84d19e58",
+      "findingId": "mimosa-aaf6bdfd568962065ae89e45",
+      "type": "static_fix_verified",
+      "at": "2026-08-31T04:29:37.219Z",
+      "identity": {
+        "projectRelativeFile": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+        "ruleId": "security",
+        "codeEvidenceHash": "9919bb67065a6fbdaaac22267c87702c15b237dfb508cd9b366ed800ace45297",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 5,
+      "endLine": 5,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "9919bb67065a6fbdaaac22267c87702c15b237dfb508cd9b366ed800ace45297"
+      },
+      "sequence": 4
+    }
+  ],
+  "observedFindingIds": [],
+  "verifiedFiles": [],
+  "recordedAt": "2026-08-31T04:29:37.780Z"
+}

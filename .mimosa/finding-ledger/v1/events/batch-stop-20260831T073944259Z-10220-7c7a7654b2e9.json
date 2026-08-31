@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20260831T073944259Z-10220-7c7a7654b2e9",
+  "runId": "20260831T073944259Z-10220-7c7a7654b2e9",
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": null,
+  "diffHash": "245268e7ee677f7ef75722125eac32e29dad9e9000868867d50b6ce058503d04",
+  "rulesVersion": "unavailable",
+  "sessionHash": "b74b13f265945f897bd0021329f8e02c1d02d2799ecda0787427b423c911de03",
+  "reportRef": ".mimosa/reports/task-review-sess_57d93b11-4ff6-4bc3-be08-38f26c4968bb-20260831T073944259Z-10220-7c7a7654b2e9.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "src/main/kotlin/com/copypathtool/CopyPathAction.kt",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/main/kotlin/com/copypathtool/SelfTestActivity.kt",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "src/test/kotlin/com/copypathtool/CopyPathActionTest.kt",
+      "direct": "complete",
+      "projectContext": "partial"
+    },
+    {
+      "file": "build.gradle.kts",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-08-31T07:39:44.826Z"
+}
