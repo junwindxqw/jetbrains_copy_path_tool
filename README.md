@@ -9,6 +9,14 @@ JetBrains 系列 IDE 的右键路径复制插件：在编辑器中一键复制�
 - **未选中代码**：`Copy File Disk Path` / `Copy File Project Path` —— 复制整个文件路径
 - **选中代码**：自动变为 `Copy Code Block Disk Path` / `Copy Code Block Project Path` —— 复制带行号的代码块路径，如 `D:/work/demo/src/App.java:12-34`
 
+**未选中代码**，显示 File 分区（整个文件路径）：
+
+![未选中代码：复制文件路径](docs/screenshot-file-paths.png)
+
+**选中代码后**，自动切换为 Code Block 分区（代码块路径 + 行号范围）：
+
+![选中代码：复制代码块路径](docs/screenshot-code-block-paths.png)
+
 每个分区下三种前缀子项（点击即复制）：
 
 | 子项 | 说明 |
