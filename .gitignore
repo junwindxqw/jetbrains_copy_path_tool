@@ -2,4 +2,5 @@
 build/
 .idea/
 .intellijPlatform/
+.mimosa/
 *.iml
