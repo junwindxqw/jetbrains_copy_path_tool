@@ -18,9 +18,6 @@ import java.awt.datatransfer.StringSelection
 /** 路径种类：磁盘完整路径 / 项目相对路径 */
 enum class PathKind { DISK, PROJECT }
 
-/** 路径前缀：无前缀 / @ / #（适配不同 agent 应用的上下文引用约定） */
-enum class PathPrefix { NONE, AT, HASH }
-
 /** 路径文本计算的共享工具 */
 internal object PathFormats {
 
@@ -58,7 +55,7 @@ internal object PathFormats {
     }
 
     /**
-     * 组装最终复制文本：前缀 + 路径。
+     * 组装最终复制文本：路径（+ 行号后缀）。
      * codeBlock = true 时附加所选代码的行号范围；false 时始终复制整个文件路径（不带行号）。
      */
     fun buildText(
@@ -66,51 +63,44 @@ internal object PathFormats {
         editor: Editor,
         file: VirtualFile,
         kind: PathKind,
-        prefix: PathPrefix,
         codeBlock: Boolean,
     ): String {
         val base = when (kind) {
             PathKind.DISK -> diskPath(file)
             PathKind.PROJECT -> projectPath(project, file)
         }
-        val path = if (codeBlock && editor.selectionModel.hasSelection()) {
+        return if (codeBlock && editor.selectionModel.hasSelection()) {
             base + lineRangeSuffix(editor.document, editor.selectionModel)
         } else {
             base
-        }
-        return when (prefix) {
-            PathPrefix.NONE -> path
-            PathPrefix.AT -> "@$path"
-            PathPrefix.HASH -> "#$path"
         }
     }
 }
 
 /**
- * 可点击的复制动作（二级菜单叶子项）。
+ * 可点击的复制动作，复制行为直接绑定在菜单名称上：
+ * 「Copy File Disk Path / Copy File Project Path / Copy Code Block Disk Path / Copy Code Block Project Path」。
  *
- * @param codeBlock true = 「Copy Code Block *」分区：必须选中代码才可用，复制“路径:行号”或“路径:起始行-结束行”；
- *                  false = 「Copy File *」分区：始终复制整个文件路径（不带行号）。
+ * @param codeBlock true = 「Copy Code Block *」项：必须选中代码才可用，复制“路径:行号”或“路径:起始行-结束行”；
+ *                  false = 「Copy File *」项：始终复制整个文件路径（不带行号）。
  */
-open class PrefixCopyAction(
+open class CopyPathAction(
     private val kind: PathKind,
-    private val prefix: PathPrefix,
     private val codeBlock: Boolean,
 ) : AnAction() {
 
     init {
-        templatePresentation.text = when (prefix) {
-            PathPrefix.NONE -> "    - None"
-            PathPrefix.AT -> "    - @ Prefix"
-            PathPrefix.HASH -> "    - # Prefix"
+        templatePresentation.text = when {
+            !codeBlock && kind == PathKind.DISK -> "Copy File Disk Path"
+            !codeBlock -> "Copy File Project Path"
+            kind == PathKind.DISK -> "Copy Code Block Disk Path"
+            else -> "Copy Code Block Project Path"
         }
         templatePresentation.description = when {
-            !codeBlock && prefix == PathPrefix.AT -> "Copy file path with @ prefix"
-            !codeBlock && prefix == PathPrefix.HASH -> "Copy file path with # prefix"
-            !codeBlock -> "Copy file path"
-            prefix == PathPrefix.AT -> "Copy code block path with @ prefix (requires selection)"
-            prefix == PathPrefix.HASH -> "Copy code block path with # prefix (requires selection)"
-            else -> "Copy code block path (requires selection)"
+            !codeBlock && kind == PathKind.DISK -> "Copy full disk path"
+            !codeBlock -> "Copy project-relative path"
+            kind == PathKind.DISK -> "Copy code block disk path with line range (requires selection)"
+            else -> "Copy code block project-relative path with line range (requires selection)"
         }
     }
 
@@ -120,7 +110,7 @@ open class PrefixCopyAction(
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE)
         val editor = e.getData(CommonDataKeys.EDITOR)
         val hasSelection = editor?.selectionModel?.hasSelection() == true
-        // 未选中代码只显示 File 分区；选中代码只显示 Code Block 分区
+        // 未选中代码只显示 File 项；选中代码只显示 Code Block 项
         e.presentation.isVisible = e.project != null && editor != null && file != null &&
             codeBlock == hasSelection
         e.presentation.isEnabled = e.presentation.isVisible &&
@@ -132,7 +122,7 @@ open class PrefixCopyAction(
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val file = e.getData(CommonDataKeys.VIRTUAL_FILE) ?: return
 
-        val text = PathFormats.buildText(project, editor, file, kind, prefix, codeBlock)
+        val text = PathFormats.buildText(project, editor, file, kind, codeBlock)
         CopyPasteManager.getInstance().setContents(StringSelection(text))
     }
 }

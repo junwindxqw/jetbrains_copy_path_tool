@@ -28,7 +28,7 @@
                class="com.copypathtool.CopyPathGroup"
                popup="true"
                text="Copy Path Tool"
-               description="Copy disk or project-relative paths of files and code blocks (flat menu with section titles)">
+               description="Copy disk or project-relative paths of files and code blocks (menu items switch with selection)">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </group>
     </actions>

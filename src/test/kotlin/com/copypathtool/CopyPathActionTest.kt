@@ -13,8 +13,8 @@ import java.awt.datatransfer.DataFlavor
 
 /**
  * 在真实平台（2024.2.4）上验证插件行为：
- * 扁平菜单结构（4 个分区标题 + 12 个前缀动作）、分区随选中状态动态显隐、
- * File 分区不带行号、Code Block 分区附带行号、@ / # 前缀、边界场景。
+ * 扁平菜单结构（4 个可点击动作，复制行为绑定在菜单名称上）、菜单项随选中状态动态显隐、
+ * File 项不带行号、Code Block 项附带行号、边界场景。
  */
 class CopyPathActionTest : BasePlatformTestCase() {
 
@@ -69,96 +69,63 @@ class CopyPathActionTest : BasePlatformTestCase() {
         val top = ActionManager.getInstance().getAction("CopyPathTool.Group")
         assertNotNull("顶级子菜单组未注册", top)
         assertTrue(top is CopyPathGroup)
-        assertEquals(16, (top as CopyPathGroup).childrenCount) // 4 标题 + 12 动作
+        assertEquals(4, (top as CopyPathGroup).childrenCount)
 
         val children = top.getChildren(null)
-        assertTrue(children[0] is SectionTitleAction)
-        assertEquals("Copy File Disk Path", (children[0] as SectionTitleAction).templatePresentation.text)
-        assertEquals("Copy File Project Path", (children[4] as SectionTitleAction).templatePresentation.text)
-        assertEquals("Copy Code Block Disk Path", (children[8] as SectionTitleAction).templatePresentation.text)
-        assertEquals("Copy Code Block Project Path", (children[12] as SectionTitleAction).templatePresentation.text)
-        assertTrue(children[1] is PrefixCopyAction)
-        assertEquals("    - None", (children[1] as PrefixCopyAction).templatePresentation.text)
+        assertTrue(children[0] is CopyPathAction)
+        assertEquals("Copy File Project Path", children[0].templatePresentation.text)
+        assertEquals("Copy File Disk Path", children[1].templatePresentation.text)
+        assertEquals("Copy Code Block Project Path", children[2].templatePresentation.text)
+        assertEquals("Copy Code Block Disk Path", children[3].templatePresentation.text)
     }
 
     fun testVisibilityTogglesWithSelection() {
-        val fileAction = PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = false)
-        val codeAction = PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = true)
-        val fileTitle = SectionTitleAction(codeBlock = false, title = "t")
-        val codeTitle = SectionTitleAction(codeBlock = true, title = "t")
+        val fileAction = CopyPathAction(PathKind.DISK, codeBlock = false)
+        val codeAction = CopyPathAction(PathKind.DISK, codeBlock = true)
 
-        // 未选中代码：只显示 File 分区
+        // 未选中代码：只显示 File 项
         val eFile1 = event()
         fileAction.update(eFile1)
         val eCode1 = event()
         codeAction.update(eCode1)
-        val eFileTitle1 = event()
-        fileTitle.update(eFileTitle1)
-        val eCodeTitle1 = event()
-        codeTitle.update(eCodeTitle1)
         assertTrue(eFile1.presentation.isVisible && eFile1.presentation.isEnabled)
-        assertTrue(eFileTitle1.presentation.isVisible)
-        assertFalse("未选中代码时 Code Block 分区应隐藏", eCode1.presentation.isVisible)
-        assertFalse(eCodeTitle1.presentation.isVisible)
+        assertFalse("未选中代码时 Code Block 项应隐藏", eCode1.presentation.isVisible)
 
-        // 选中代码：只显示 Code Block 分区
+        // 选中代码：只显示 Code Block 项
         selectLines(4, 6)
         val eFile2 = event()
         fileAction.update(eFile2)
         val eCode2 = event()
         codeAction.update(eCode2)
-        val eFileTitle2 = event()
-        fileTitle.update(eFileTitle2)
-        val eCodeTitle2 = event()
-        codeTitle.update(eCodeTitle2)
-        assertFalse("选中代码时 File 分区应隐藏", eFile2.presentation.isVisible)
-        assertFalse(eFileTitle2.presentation.isVisible)
+        assertFalse("选中代码时 File 项应隐藏", eFile2.presentation.isVisible)
         assertTrue(eCode2.presentation.isVisible && eCode2.presentation.isEnabled)
-        assertTrue(eCodeTitle2.presentation.isVisible)
     }
 
     fun testCopyFileDiskPath() {
-        PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = false).actionPerformed(event())
+        CopyPathAction(PathKind.DISK, codeBlock = false).actionPerformed(event())
         // 磁盘路径统一使用正斜杠（agent 应用对话友好）
         assertEquals(myFixture.file.virtualFile.path, clipboardText())
     }
 
     fun testCopyFileProjectPath() {
-        PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = false).actionPerformed(event())
+        CopyPathAction(PathKind.PROJECT, codeBlock = false).actionPerformed(event())
         assertEquals("src/Main.java", clipboardText())
-    }
-
-    fun testFilePrefixVariants() {
-        PrefixCopyAction(PathKind.DISK, PathPrefix.AT, codeBlock = false).actionPerformed(event())
-        assertEquals("@" + myFixture.file.virtualFile.path, clipboardText())
-
-        PrefixCopyAction(PathKind.DISK, PathPrefix.HASH, codeBlock = false).actionPerformed(event())
-        assertEquals("#" + myFixture.file.virtualFile.path, clipboardText())
-
-        PrefixCopyAction(PathKind.PROJECT, PathPrefix.AT, codeBlock = false).actionPerformed(event())
-        assertEquals("@src/Main.java", clipboardText())
     }
 
     fun testCodeBlockPathsWhenSelected() {
         // 选中第 5~7 行（println alpha/beta/gamma 三行）
         selectLines(4, 6)
 
-        PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = true).actionPerformed(event())
+        CopyPathAction(PathKind.DISK, codeBlock = true).actionPerformed(event())
         assertEquals(myFixture.file.virtualFile.path + ":5-7", clipboardText())
 
-        PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = true).actionPerformed(event())
+        CopyPathAction(PathKind.PROJECT, codeBlock = true).actionPerformed(event())
         assertEquals("src/Main.java:5-7", clipboardText())
-    }
-
-    fun testCodeBlockPrefixWithSelection() {
-        selectLines(4, 6)
-        PrefixCopyAction(PathKind.DISK, PathPrefix.AT, codeBlock = true).actionPerformed(event())
-        assertEquals("@" + myFixture.file.virtualFile.path + ":5-7", clipboardText())
     }
 
     fun testSingleLineSelectionSuffix() {
         selectLines(5, 5) // 第 6 行
-        PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = true).actionPerformed(event())
+        CopyPathAction(PathKind.PROJECT, codeBlock = true).actionPerformed(event())
         assertEquals("src/Main.java:6", clipboardText())
     }
 
@@ -168,7 +135,7 @@ class CopyPathActionTest : BasePlatformTestCase() {
             doc.getLineStartOffset(4),
             doc.getLineStartOffset(5)
         )
-        PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = true).actionPerformed(event())
+        CopyPathAction(PathKind.PROJECT, codeBlock = true).actionPerformed(event())
         assertEquals("src/Main.java:5", clipboardText())
     }
 

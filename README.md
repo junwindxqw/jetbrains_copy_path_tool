@@ -4,10 +4,10 @@ JetBrains 系列 IDE 的右键路径复制插件：在编辑器中一键复制�
 
 ## 有什么用
 
-编辑器内右键 → **Copy Path Tool**（菜单位于最顶部），分区随选中状态自动切换：
+编辑器内右键 → **Copy Path Tool**（菜单位于最顶部），菜单项随选中状态自动切换：
 
-- **未选中代码**：`Copy File Disk Path` / `Copy File Project Path` —— 复制整个文件路径
-- **选中代码**：自动变为 `Copy Code Block Disk Path` / `Copy Code Block Project Path` —— 复制带行号的代码块路径，如 `D:/work/demo/src/App.java:12-34`
+- **未选中代码**：`Copy File Project Path` / `Copy File Disk Path` —— 复制整个文件路径
+- **选中代码**：自动变为 `Copy Code Block Project Path` / `Copy Code Block Disk Path` —— 复制带行号的代码块路径，如 `D:/work/demo/src/App.java:12-34`
 
 **未选中代码**，显示 File 分区（整个文件路径）：
 
@@ -16,14 +16,6 @@ JetBrains 系列 IDE 的右键路径复制插件：在编辑器中一键复制�
 **选中代码后**，自动切换为 Code Block 分区（代码块路径 + 行号范围）：
 
 ![选中代码：复制代码块路径](docs/screenshot-code-block-paths.png)
-
-每个分区下三种前缀子项（点击即复制）：
-
-| 子项 | 说明 |
-| --- | --- |
-| None | 纯路径，**默认推荐**，所有 agent 应用都识别 |
-| @ Prefix | `@` 前缀，适合 Qoder / ZCode 等使用 `@` 提及的应用（建议配项目相对路径） |
-| # Prefix | `#` 前缀，适合 Trae 系使用 `#` 引用的应用 |
 
 路径统一使用正斜杠（`D:/work/demo/src/App.java`），粘贴到对话中不会被 Markdown 转义。
 

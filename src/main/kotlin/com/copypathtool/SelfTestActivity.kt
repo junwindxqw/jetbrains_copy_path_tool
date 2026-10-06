@@ -26,8 +26,8 @@ import java.io.File
  *
  * 仅当以 `-Dcopypath.selftest`（任意值）启动 IDE 时激活：
  * 项目打开后自动打开项目内指定文件（`-Dcopypath.selftest.file=<项目内文件名>`），
- * 依次执行扁平菜单中 File / Code Block 各分区在不同前缀（None / @ / #）、不同选中状态下的复制动作，
- * 把分区可用状态与剪贴板实际内容写入报告文件（IDE 日志目录下 copypath-selftest-report.txt），
+ * 依次执行扁平菜单中 File / Code Block 各菜单项在不同选中状态下的复制动作，
+ * 把菜单项可用状态与剪贴板实际内容写入报告文件（IDE 日志目录下 copypath-selftest-report.txt），
  * 用于在真实 IDE（PhpStorm / WebStorm 等）中做端到端验证。
  *
  * 安全约定：报告固定写入平台日志目录；目标文件仅按“文件名”在项目目录内查找，
@@ -89,7 +89,7 @@ class SelfTestActivity : ProjectActivity {
             val topGroup = withContext(Dispatchers.EDT) {
                 ActionManager.getInstance().getAction("CopyPathTool.Group") as? CopyPathGroup
             }
-            if (topGroup == null || topGroup.childrenCount != 16) {
+            if (topGroup == null || topGroup.childrenCount != 4) {
                 report.append("result=FAIL reason=actions_not_registered count=")
                     .append(topGroup?.childrenCount ?: -1).append('\n')
                 return
@@ -117,7 +117,7 @@ class SelfTestActivity : ProjectActivity {
                     null
                 }
 
-                fun run(action: PrefixCopyAction, key: String) {
+                fun run(action: CopyPathAction, key: String) {
                     val ae = event()
                     action.update(ae)
                     report.append(key).append("Visible=").append(ae.presentation.isVisible).append('\n')
@@ -126,24 +126,21 @@ class SelfTestActivity : ProjectActivity {
                     report.append(key).append('=').append(clipboardText()).append('\n')
                 }
 
-                // 场景 1：未选中代码 —— 只显示 File 分区，Code Block 分区隐藏
+                // 场景 1：未选中代码 —— 只显示 File 项，Code Block 项隐藏
                 readyEditor.selectionModel.removeSelection()
-                run(PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = false), "fileDiskNoSel")
-                run(PrefixCopyAction(PathKind.DISK, PathPrefix.AT, codeBlock = false), "fileDiskAtNoSel")
-                run(PrefixCopyAction(PathKind.DISK, PathPrefix.HASH, codeBlock = false), "fileDiskHashNoSel")
-                run(PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = false), "fileProjNoSel")
-                run(PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = true), "codeBlockDiskNoSel")
+                run(CopyPathAction(PathKind.DISK, codeBlock = false), "fileDiskNoSel")
+                run(CopyPathAction(PathKind.PROJECT, codeBlock = false), "fileProjNoSel")
+                run(CopyPathAction(PathKind.DISK, codeBlock = true), "codeBlockDiskNoSel")
 
-                // 场景 2：选中第 2~4 行（0 基下标 1..3）—— 只显示 Code Block 分区并附带行号，File 分区隐藏
+                // 场景 2：选中第 2~4 行（0 基下标 1..3）—— 只显示 Code Block 项并附带行号，File 项隐藏
                 if (readyEditor.document.lineCount >= 5) {
                     readyEditor.selectionModel.setSelection(
                         readyEditor.document.getLineStartOffset(1),
                         readyEditor.document.getLineEndOffset(3)
                     )
-                    run(PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = true), "codeBlockDiskSel")
-                    run(PrefixCopyAction(PathKind.PROJECT, PathPrefix.NONE, codeBlock = true), "codeBlockProjSel")
-                    run(PrefixCopyAction(PathKind.PROJECT, PathPrefix.AT, codeBlock = true), "codeBlockProjAtSel")
-                    run(PrefixCopyAction(PathKind.DISK, PathPrefix.NONE, codeBlock = false), "fileDiskWithSelection")
+                    run(CopyPathAction(PathKind.DISK, codeBlock = true), "codeBlockDiskSel")
+                    run(CopyPathAction(PathKind.PROJECT, codeBlock = true), "codeBlockProjSel")
+                    run(CopyPathAction(PathKind.DISK, codeBlock = false), "fileDiskWithSelection")
                 }
 
                 report.append("result=OK\n")
